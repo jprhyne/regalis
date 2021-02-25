@@ -5,7 +5,9 @@ const BOARD_DIMENSIONS: usize = 8;
 
 /// This structure represents the drawn chessboard to be updated after each move
 pub struct Board {
+    // Used 
     state: [[Piece; BOARD_DIMENSIONS]; BOARD_DIMENSIONS],
+    bitfield: u64,
 }
 
 /// This struct represents a game of Chess along with whoever's turn it is
@@ -46,6 +48,7 @@ struct Piece {
     is_move_valid: fn(Piece, Move) -> bool,
 }
 
+#[derive(Copy, Clone)]
 pub enum PieceType {
     Pawn,
     Knight,
@@ -218,6 +221,7 @@ impl Game {
                     position: Position { x: -1, y: -1 },
                     is_move_valid: empty_piece_move,
                 }; BOARD_DIMENSIONS]; BOARD_DIMENSIONS],
+                bitfield: 0xFFFF00000000FFFFu64;
             },
         };
         // Initialize board state
